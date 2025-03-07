@@ -3,8 +3,8 @@ name: Node.js Build & Deploy
 on:
   push:
     branches:
-      - mastet # Change this if you want to deploy from a different branch
-  workflow_dispatch:  # Allows manual trigger
+      - master
+  workflow_dispatch:
 
 jobs:
   build:
@@ -16,22 +16,22 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18  # Use your preferred Node.js version
+          node-version: 18
 
       - name: Install Dependencies
         run: npm install
 
-      - name: Run Tests (Optional)
+      - name: Run Tests
         run: npm test
 
-      - name: Build Project (If Needed)
-        run: npm run build  # Only include if your project has a build step
+      - name: Build Project
+        run: npm run build
 
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v3
         with:
           name: build-output
-          path: build/  # Change this based on your project's output folder
+          path: build/  # Ensure this path is correct and exists
 
   deploy:
     needs: build
@@ -49,11 +49,11 @@ jobs:
       - name: Deploy to Server via SSH
         uses: appleboy/ssh-action@v0.1.6
         with:
-          host: ${{ secrets.SERVER_IP }}  # Add this in GitHub Secrets
+          host: ${{ secrets.SERVER_IP }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
-            cd /var/www/my-node-app  # Change this to your actual deployment path
+            cd /var/www/my-node-app
             git pull origin main
             npm install --production
-            pm2 restart my-node-app  # Restart app using PM2 (Ensure it's installed)
+            pm2 restart my-node-app
