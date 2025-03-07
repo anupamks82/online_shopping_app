@@ -27,7 +27,7 @@ jobs:
       - name: Build Project
         run: npm run build
 
-      - name: Upload Build Artifacts
+      - name: Build Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: build-output
@@ -41,7 +41,7 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Download Build Artifacts
+      - name: Build Artifacts
         uses: actions/download-artifact@v4
         with:
           name: build-output
