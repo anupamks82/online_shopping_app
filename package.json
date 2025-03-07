@@ -8,7 +8,8 @@
     "build": "vite build",
     "start": "vite preview --host --port 5173",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "echo \"No test specified\" && exit 0"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
@@ -46,11 +47,5 @@
   "peerDependencies": {
     "react": "^18.0.0",
     "react-dom": "^18.0.0"
-  },
-  "scripts": {
-  "start": "node app.js",
-  "test": "echo \"No test specified\" && exit 0"
-  "build": "echo \"No build process defined\" && exit 0"
-  }  
+  }
 }
-
