@@ -46,14 +46,11 @@
   "peerDependencies": {
     "react": "^18.0.0",
     "react-dom": "^18.0.0"
-  },
+  }
   "scripts": {
   "start": "node app.js",
   "test": "echo \"No test specified\" && exit 0"
   "build": "echo \"No build process defined\" && exit 0"
-  }
-
-
-  
+ }  
 }
 
