@@ -27,11 +27,11 @@ jobs:
       - name: Build Project
         run: npm run build
 
-      - name: Build Artifacts
+      - name: upload build Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: build-output
-          path: build/  # Ensure this path is correct and exists
+          path: build//to/build/folder  # Ensure this path is correct and exists
 
   deploy:
     needs: build
@@ -40,11 +40,11 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Download Artifacts
+      - name: Download build Artifacts
         uses: actions/download-artifact@v4
         with:
           name: build-output
-          path: build/
+          path: build//to/build/folder
 
       - name: Deploy to Server via SSH
         uses: appleboy/ssh-action@v0.1.6
