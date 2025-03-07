@@ -27,11 +27,17 @@ jobs:
       - name: Build Project
         run: npm run build
 
+      - name: Create a file
+        run: echo "I won't live long" > my_file.txt
+
+
+        
+
       - name: upload build Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: build-output
-          path: frontend/build  # Ensure this path is correct and exists
+          path: my_file.txt # Ensure this path is correct and exists
 
   deploy:
     needs: build
@@ -44,7 +50,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: build-output
-          path: frontend/build
+          path: my_file.txt
 
       - name: Deploy to Server via SSH
         uses: appleboy/ssh-action@v0.1.6
