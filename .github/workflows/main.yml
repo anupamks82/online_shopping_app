@@ -33,9 +33,6 @@ jobs:
           name: build-output
           path: build/  # Ensure this path is correct and exists
 
-      - name: Check if build folder exists
-        run: ls -la build/
-
   deploy:
     needs: build
     runs-on: ubuntu-latest
