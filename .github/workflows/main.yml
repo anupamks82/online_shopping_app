@@ -27,11 +27,11 @@ jobs:
       - name: Build Project
         run: npm run build
 
-   #  - name: Upload Build Artifacts
-   #     uses: actions/upload-artifact@v3
-    #    with:
-    #      name: build-output
-    #      path: build/  # Ensure this path is correct and exists
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-output
+          path: build/  # Ensure this path is correct and exists
 
   deploy:
     needs: build
