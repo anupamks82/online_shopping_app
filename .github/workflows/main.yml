@@ -32,6 +32,7 @@ jobs:
         with:
           name: build-output
           path: build/  # Ensure this path is correct and exists
+          retention-days: 7 
 
   deploy:
     needs: build
