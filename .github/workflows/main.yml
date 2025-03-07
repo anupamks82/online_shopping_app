@@ -27,15 +27,14 @@ jobs:
       - name: Build Project
         run: npm run build
 
-      - name: Check if build folder exists
-        run: ls -la build/
-
-
       - name: Build Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: build-output
           path: build/  # Ensure this path is correct and exists
+
+      - name: Check if build folder exists
+        run: ls -la build/
 
   deploy:
     needs: build
