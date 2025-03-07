@@ -31,7 +31,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: build-output
-          path: build/to/build/folder  # Ensure this path is correct and exists
+          path: frontend/build  # Ensure this path is correct and exists
 
   deploy:
     needs: build
@@ -44,7 +44,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: build-output
-          path: build/to/build/folder
+          path: frontend/build
 
       - name: Deploy to Server via SSH
         uses: appleboy/ssh-action@v0.1.6
