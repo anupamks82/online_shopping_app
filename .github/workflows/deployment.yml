@@ -1,0 +1,55 @@
+name: Deploy to Azure VM
+
+on:
+  push:
+    branches:
+      - master  # Change this to your branch if needed
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup SSH and Deploy to Server
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SERVER_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
+            set -e  # Stop on error
+            
+            # Ensure directory exists
+            sudo mkdir -p /var/www/my-node-app
+            sudo chown -R $USER:$USER /var/www/my-node-app
+            cd /var/www/my-node-app
+            
+            # Fix Git Safe Directory Issue
+            git config --global --add safe.directory /var/www/my-node-app
+            
+            # Ensure Git repo exists
+            if [ ! -d ".git" ]; then
+              git clone https://github.com/YOUR_GITHUB_USERNAME/YOUR_REPO.git .
+            fi
+            git pull origin main
+
+            # Install Node.js if not installed
+            if ! command -v node &> /dev/null; then
+              curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+              sudo apt-get install -y nodejs
+            fi
+            
+            # Install dependencies
+            npm install
+
+            # Install PM2 if not installed
+            if ! command -v pm2 &> /dev/null; then
+              npm install -g pm2
+            fi
+
+            # Start or Restart app
+            pm2 restart my-node-app || pm2 start app.js --name my-node-app
+          EOF
