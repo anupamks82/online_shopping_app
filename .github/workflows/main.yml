@@ -60,6 +60,6 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
             cd /var/www/my-node-app
-            git pull origin main
+            git pull origin master
             npm install --production
             pm2 restart my-node-app
