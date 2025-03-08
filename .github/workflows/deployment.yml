@@ -34,7 +34,7 @@ jobs:
             if [ ! -d ".git" ]; then
               git clone https://github.com/YOUR_GITHUB_USERNAME/YOUR_REPO.git .
             fi
-            git pull origin main
+            git pull origin master
 
             # Install Node.js if not installed
             if ! command -v node &> /dev/null; then
@@ -53,3 +53,9 @@ jobs:
             # Start or Restart app
             pm2 restart my-node-app || pm2 start app.js --name my-node-app
           EOF
+
+
+            git add .github/workflows/deploy.yml
+            git commit -m "Add GitHub Actions deployment workflow"
+            git push origin master
+
